@@ -12,19 +12,7 @@ function comparisonValues = compareOrderParams(x)
      expModelProduct = findInnerProduct(expParams, modelParams)
      expNaiveProduct = findInnerProduct(expParams, naiveParams)
      
-     
-     %need to save/display graphs -- dude there aren't any fucking graphs
 end
-
-% function noReturn = savePlots(product)
-%     x = .5
-%     han = figure;
-%     plot(x, product);
-%     xlabel('Time (s)');
-%     title(strcat('Polarization vs time for experiment: ', num2str(expnum)));
-%     fname = strcat('polarization_exp_', num2str(expnum));
-%     saveas(han, char(fname), 'png');
-% end
 
 %loads data from a run and maybe calls extractOrderParams on it?
 function data = loadData(expnum)
@@ -129,27 +117,4 @@ function innerProduct = findInnerProduct(orderParams1, orderParams2)
     diff = abs(orderParams1 - orderParams2); %so this should now be an array of the same dimensions
     squared = diff.^2;
     innerProduct = sum(squared(:)); %remember to exclude the last endpoint!
-
-%--------------------OLD BELOW THIS LINE----------------------------------
-        %what we actually want to do: at each x entry, multiply the values
-        %so just a 1xN array, and then sum up all the entries but the
-        %last...?
-        
-        %comparing exp by models, 1*N matrices
-        %for those of us who have forgotten all of our matlab, .* is the
-        %element-wise matrix multiplication operator
-        
-        %so here originally what was happening was we were getting one
-        %number for the differenvce between matrices, and then just storing
-        %that round by roundin a thing - but what we really want to do
-        %instead is to get the flat matrix with the multiplication values,
-        %and then sum up all but the last 
-        %and then save that value...
-        
-        %product = expData  .* modelData; %check and make sure this is of right dimensions
-        %expModel(1, runnum) = sum(product(:)); %should ensure that this excludes last element... but how much does it matter and why
-        
-        %product = abs(expData .* naiveData); %maybe stick this in a function anyway?
-        %expNaive(1, runnum) = sum(product(:));
-
 end

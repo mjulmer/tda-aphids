@@ -52,3 +52,4 @@ absName = strcat('comparisonAbsNorm', num2str(expnum), '.png');
 makeHistogram(comparisonPolar, plotName);
 makeHistogram(comparisonAng, angName);
 makeHistogram(comparisonAbs, absName);
+

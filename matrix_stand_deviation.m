@@ -3,22 +3,25 @@ total_runs = 100;
 filtrationgap = .00005;
 maxfilt = 0.2;
 timesamples = 1000;
- 
+
+%whichModel = 'noInteraction'
+whichModel = 'model'
+
 for expnum = 1:9    
-    all_runs = load(strcat('noInteraction100h', num2str(dimension), 'exp', num2str(expnum), 'run1.csv'));
+    all_runs = load(strcat(whichModel, '100h', num2str(dimension), 'exp', num2str(expnum), 'run1.csv'));
     dims = size(all_runs);
     endframe = dims(1);
     
     for runnum = 2:total_runs
-        current_run = load(strcat('noInteraction100h', num2str(dimension), 'exp', num2str(expnum), 'run', num2str(runnum), '.csv'));
+        current_run = load(strcat(whichModel, '100h', num2str(dimension), 'exp', num2str(expnum), 'run', num2str(runnum), '.csv'));
         all_runs = cat(3, all_runs, current_run);
     end
     
     s = std(all_runs, 0, 3);
-    csvwrite(strcat('full100noInteractionStandardDevExp', num2str(expnum), '.csv'), s)
+    csvwrite(strcat('full100', whichModel, 'StandardDevExp', num2str(expnum), '.csv'), s)
  
     t = mean(all_runs, 3);
-    csvwrite(strcat('full100noInteractionAverageExp', num2str(expnum), '.csv'), t)
+    csvwrite(strcat('full100', whichModel, 'AverageExp', num2str(expnum), '.csv'), t)
     
     % make our contour plot with provided contours
     y = 0:filtrationgap:maxfilt;
@@ -37,7 +40,7 @@ for expnum = 1:9
     xlabel('Time (s)');
     ylabel('Filtration parameter');
     colorbar;
-    saveas(han, strcat('noInteraction100Average', 'h', num2str(dimension), 'exp', num2str(expnum), 'png'));
+    saveas(han, strcat(whichModel, '100Average', 'h', num2str(dimension), 'exp', num2str(expnum)));
 end
  
 %this is the procedure:

@@ -1,10 +1,10 @@
 
-for expnum = 3:3
+for expnum = 5:9
     % For simulated data: [2 3 4 5] = "aphid_label" "frame","x.pos","y.pos"
-    %data = load(strcat('full100ModelDataExp', num2str(expnum), '.csv'));
-    data = load(strcat('full100noInteractionDataExp', num2str(expnum), '.csv'));
+    data = load(strcat('full100ModelDataExp', num2str(expnum), '.csv'));
+    %data = load(strcat('full100noInteractionDataExp', num2str(expnum), '.csv'));
     
-    total_runs = 7;
+    total_runs = 100;
     
     for runnum = 1:total_runs
         run_index = (data(:, 1) == runnum);
@@ -19,8 +19,8 @@ for expnum = 3:3
         
         %get the first frame
         index = (current_run(:, 2) == 1);
-        frame_one = current_run(index, :)
-        num_aphids = size(frame_one, 1)
+        frame_one = current_run(index, :);
+        num_aphids = size(frame_one, 1);
         prev_frame = frame_one;
         
         %the data always starts at frame two, so we do too.
@@ -49,8 +49,10 @@ for expnum = 3:3
             end
             mean_distance(frame) = mean(closest_neighbor);
         end
-        name = strcat('nearNeighborPlotExp', num2str(expnum), 'run', num2str(runnum), '.png');
-        makeOrderParamPlot(mean_distance, name); 
+        %name = strcat('nearNeighborPlotExp', num2str(expnum), 'run', num2str(runnum), '.png');
+        %makeOrderParamPlot(mean_distance, name); 
+        name = strcat('nearNeighborModelExp', num2str(expnum), 'run', num2str(runnum), '.csv');
+        csvwrite(name, mean_distance);
         runnum
     end
     exp_done = expnum %print statement for progress
