@@ -5,9 +5,10 @@ maxfilt = 0.2;
 timesamples = 1000;
 
 %whichModel = 'noInteraction'
-whichModel = 'model'
-
-for expnum = 1:9    
+whichModel = 'model';
+%NOTE ON FILE NAMES: for model exp 1-4, use 'Fullh' instead of 100h. Change
+%on BOTH of the below lines. Sorry about my terrible naming practices.
+for expnum = 5:9    
     all_runs = load(strcat(whichModel, '100h', num2str(dimension), 'exp', num2str(expnum), 'run1.csv'));
     dims = size(all_runs);
     endframe = dims(1);
@@ -15,6 +16,7 @@ for expnum = 1:9
     for runnum = 2:total_runs
         current_run = load(strcat(whichModel, '100h', num2str(dimension), 'exp', num2str(expnum), 'run', num2str(runnum), '.csv'));
         all_runs = cat(3, all_runs, current_run);
+        runnum
     end
     
     s = std(all_runs, 0, 3);
