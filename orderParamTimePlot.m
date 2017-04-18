@@ -1,9 +1,9 @@
 % Comment through line 9 after the first run so you don't load the data in
 % every time.
 
-%aphiddata = load('aphiddata.csv');
+aphiddata = load('aphiddata.csv');
 
-for expnum = 1:9
+for expnum = 2:3
     index = (aphiddata(:,1) == expnum); %grab only the experiment you want, with all the frames of that run
     expData = aphiddata(index, [3 4 5 6 7 8]);  %get relevant columns
     % For experimental data: [3 4 5 6 7 8] = "frame","x.pos","y.pos","speed","x.dir","y.dir"
@@ -45,22 +45,22 @@ for expnum = 1:9
         exp_model_abs(1, runnum) = norm(model_ang - exp_ang, 2);
         exp_model_ang(1, runnum) = norm(model_abs - exp_abs, 2);
     
-%         polarName = strcat('polarPlotNaive', num2str(expnum), 'run',  num2str(runnum));
-%         angName = strcat('angPlotNaive', num2str(expnum), 'run',  num2str(runnum));
-%         absName = strcat('absPlotNaive', num2str(expnum), 'run',  num2str(runnum));
-        %makeOrderParamPlot(naive_polar, strcat(polarName, '.png'));
-        %makeOrderParamPlot(naive_ang, strcat(angName, '.png'));
-        %makeOrderParamPlot(naive_abs, strcat(absName, '.png'));
+        polarName = strcat('polarPlotNaive', num2str(expnum), 'run',  num2str(runnum));
+        angName = strcat('angPlotNaive', num2str(expnum), 'run',  num2str(runnum));
+        absName = strcat('absPlotNaive', num2str(expnum), 'run',  num2str(runnum));
+        makeOrderParamPlot(naive_polar, strcat(polarName, '.png'));
+        makeOrderParamPlot(naive_ang, strcat(angName, '.png'));
+        makeOrderParamPlot(naive_abs, strcat(absName, '.png'));
 
 
-%         polarName = strcat('polarPlotModel', num2str(expnum), 'run',  num2str(runnum));
-%         angName = strcat('angPlotModel', num2str(expnum), 'run',  num2str(runnum));
-%         absName = strcat('absPlotModel', num2str(expnum), 'run',  num2str(runnum));
-        %makeOrderParamPlot(model_polar, strcat(polarName, '.png'));
-        %makeOrderParamPlot(model_ang, strcat(angName, '.png'));
-        %makeOrderParamPlot(model_abs, strcat(absName, '.png'));
+        polarName = strcat('polarPlotModel', num2str(expnum), 'run',  num2str(runnum));
+        angName = strcat('angPlotModel', num2str(expnum), 'run',  num2str(runnum));
+        absName = strcat('absPlotModel', num2str(expnum), 'run',  num2str(runnum));
+        makeOrderParamPlot(model_polar, strcat(polarName, '.png'));
+        makeOrderParamPlot(model_ang, strcat(angName, '.png'));
+        makeOrderParamPlot(model_abs, strcat(absName, '.png'));
 
-        %close all
+        close all
 
     end
     
