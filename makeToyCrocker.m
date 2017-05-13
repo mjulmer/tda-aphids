@@ -30,16 +30,19 @@ cmap(4, :) = [249, 168, 37]./255;
 %cmap(6, :) = [249, 58, 36]./255;
 
 colormap(handle, cmap)
+set(gca,'FontName','Times New Roman','FontSize',10);
+
 contours = [2, 3, 4, 5];
 [C, h] = contour(x, y, data, contours, 'ShowText', 'on');
+clabel(C, h, 'FontName','Times New Roman','FontSize',10)
 
 xlabel('Time');
 ylabel('Filtration parameter');
 yticklabels([0:0.05:0.5]);
 colorbar;
-saveas(handle, 'toyCROCKER', 'png');
-saveas(handle, 'toyCROCKER');
-
+%saveas(handle, 'toyCROCKER', 'png');
+%saveas(handle, 'toyCROCKER');
+write_fig_300_dpi(handle, 'Fig4');
 
 
 

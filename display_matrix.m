@@ -20,7 +20,7 @@ cmap(6, :) = [249, 58, 36]./255;
 
 colormap(cmap)
 colorbar
-
+set(gca,'FontName','Times New Roman','FontSize',10);
 
 
 textStrings = num2str(data(:),'%i');  %# Create strings from the matrix values
@@ -28,12 +28,13 @@ textStrings = strtrim(cellstr(textStrings));  %# Remove any space padding
 [x, y] = meshgrid(1:8, 1:6); 
 %x = meshgrid(1:6);
 %y = meshgrid(1:8); %# Create x and y coordinates for the strings
-hStrings = text(x(:),y(:),textStrings(:), 'HorizontalAlignment','center'); %# Plot the strings
+hStrings = text(x(:),y(:),textStrings(:), 'HorizontalAlignment','center', 'FontName','Times New Roman','FontSize',10); %# Plot the strings
 midValue = mean(get(gca,'CLim'));  %# Get the middle value of the color range
 
 %set(gca,'XTick',1:8, 'YTick',0.1:0.1:0.6, 'TickLength',[0 0]);
 xlabel('Time');
 ylabel('Filtration parameter');
 yticklabels(fliplr([0:0.1:0.5]));
-saveas(handle, 'toyMatrix', 'png');
+%saveas(handle, 'toyMatrix', 'png');
+write_fig_300_dpi(handle, 'Fig3');
 hold off;
