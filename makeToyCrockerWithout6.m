@@ -27,12 +27,12 @@ cmap(1, :) = [51, 61, 204]./255;
 cmap(2, :) = [27, 198, 96]./255;
 cmap(3, :) = [244, 241, 31]./255;
 cmap(4, :) = [249, 168, 37]./255;
-cmap(5, :) = [249, 58, 36]./255;
+%cmap(6, :) = [249, 58, 36]./255;
 
 colormap(handle, cmap)
 set(gca,'FontName','Times New Roman','FontSize',10);
 
-contours = [2, 3, 4, 5, 6];
+contours = [2, 3, 4, 5];
 [C, h] = contour(x, y, data, contours, 'ShowText', 'on');
 clabel(C, h, 'FontName','Times New Roman','FontSize',10)
 

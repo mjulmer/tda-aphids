@@ -19,7 +19,7 @@ cmap(5, :) = [249, 168, 37]./255;
 cmap(6, :) = [249, 58, 36]./255;
 
 colormap(cmap)
-colorbar
+colorbar('Ticks',[1.416, 2.25, 3.083, 3.917, 4.75, 5.583],'YTickLabel', {'1', '2', '3', '4', '5', '6'})
 set(gca,'FontName','Times New Roman','FontSize',10);
 
 
@@ -32,8 +32,8 @@ hStrings = text(x(:),y(:),textStrings(:), 'HorizontalAlignment','center', 'FontN
 midValue = mean(get(gca,'CLim'));  %# Get the middle value of the color range
 
 %set(gca,'XTick',1:8, 'YTick',0.1:0.1:0.6, 'TickLength',[0 0]);
-xlabel('Time');
-ylabel('Filtration parameter');
+xlabel('Time \it{t}');
+ylabel('Proximity parameter \epsilon');
 yticklabels(fliplr([0:0.1:0.5]));
 %saveas(handle, 'toyMatrix', 'png');
 write_fig_300_dpi(handle, 'Fig3');

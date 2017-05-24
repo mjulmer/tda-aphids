@@ -2,7 +2,7 @@ data = [1 2 2 1 1 1 1 1; 2 2 2 1 2 2 2 2; 3 3 3 3 2 3 3 2; 3 4 4 5 4 4 3 3; 4 5 
 data = flipud(data);
 
 y = 1:6;
-x = 1:8;
+x = 0:7;
 
 %so the deal is that you don't have any blocks with value 6,
 %so you don't want the b=6 contour and you want to color all
@@ -34,14 +34,17 @@ set(gca,'FontName','Times New Roman','FontSize',10);
 
 contours = [2, 3, 4, 5, 6];
 [C, h] = contour(x, y, data, contours, 'ShowText', 'on');
+h.ZData; %for testing
 clabel(C, h, 'FontName','Times New Roman','FontSize',10)
-
+axis([0 7 0 6])
 box on;
 xlabel('Time \it{t}');
 ylabel('Proximity parameter \epsilon');
-set(gca,'YTick',.5:1:6)
+set(gca,'YTick',.5:1:6);
 yticklabels(0:0.1:0.5);
-colorbar('Ticks',[2.375, 3.125, 3.875, 4.625],'YTickLabel', {'2', '3', '4', '5'})
+set(gca,'XTick',0:1:8)
+xticklabels(1:1:8);
+colorbar('Ticks',[2.4, 3.2, 4, 4.8, 5.6],'YTickLabel', {'2', '3', '4', '5', '6'})
 %saveas(handle, 'toyCROCKER', 'png');
 %saveas(handle, 'toyCROCKER');
 write_fig_300_dpi(handle, 'Fig4');
