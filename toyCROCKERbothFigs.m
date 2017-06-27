@@ -1,6 +1,7 @@
 data = [1 2 2 1 1 1 1 1; 2 2 2 1 2 2 2 2; 3 3 3 3 2 3 3 2; 3 4 4 5 4 4 3 3; 4 5 5 5 5 5 4 4; 6 6 6 6 6 6 6 6];
 %http://stackoverflow.com/questions/3942892/how-do-i-visualize-a-matrix-with-colors-and-values-displayed
 fig = figure;
+
 handle1 = subplot(2, 1, 1);
 imagesc(data);   
 
@@ -34,10 +35,16 @@ midValue = mean(get(gca,'CLim'));  %# Get the middle value of the color range
 xlabel('Time \it{t}');
 ylabel('Proximity parameter \epsilon');
 yticklabels(fliplr([0:0.1:0.5]));
+title('(A)')
 
 data = flipud(data);
 
 handle2 = subplot(2, 1, 2);
+%p is of form [left, bottom, width, height]
+p = get(handle2, 'pos');
+p(2) = p(2) - .01;
+set(handle2, 'pos', p);
+
 y = 1:6;
 x = 0:7;
 
@@ -73,4 +80,8 @@ set(gca,'XTick',0:1:8)
 xticklabels(1:1:8);
 colorbar('Ticks',[2.4, 3.2, 4, 4.8, 5.6],'YTickLabel', {'2', '3', '4', '5', '6'})
 set(gca,'FontName','Times New Roman','FontSize',10);
+title('(B)')
+
+
+
 write_fig_300_dpi(fig, 'Fig3');

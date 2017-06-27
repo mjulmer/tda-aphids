@@ -1,11 +1,17 @@
 % plotAphidTracks.m shows the movment of aphids over time by plotting their
 % 'trails'. If you’re using same dataset you can comment that out once it’s in memory.
 
-%aphiddata = load('aphiddata.csv');
+%it used to account for aphids that appeared in later frames, but could not
+%plot their trails, and had to plot the aphids at their first appearance
+%rather than their last. This version tracks only the aphids appearing in
+%the first frame.
 
-expnum = 1;
+%aphiddata = load('aphiddata.csv');
+handle = figure;
+
+expnum = 9;
 framenum = 2; %starting frame, goes out numOfFrames frames from here
-numOfFrames = 300;
+numOfFrames = 900;
 stepsize = 0.001;
 epsilon = stepsize;
 maximum = 0.05;
@@ -41,9 +47,18 @@ for i = 1:maxAphidNum
 end
 firstOccurenceEachAphid = firstOccurenceEachAphid(any(firstOccurenceEachAphid,2),:); %deletes all zero lines
 
+
+lastOccurenceEachAphid = zeros(maxAphidNum, 3);
+for i = 1:maxAphidNum
+    lastFrameAppears = find(coordinateMatrix(:, i, 1), 1, 'last'); %get the last index instead of the first
+    if ~isempty(lastFrameAppears)
+        lastOccurenceEachAphid(i, :) = [i, coordinateMatrix(lastFrameAppears(1),i, 1), coordinateMatrix(lastFrameAppears(1), i, 2)];
+    end   
+end
 % plots current frame
 figure
-scatter(firstOccurenceEachAphid(:, 2), firstOccurenceEachAphid(:, 3), 'filled'); %TODO: this will not account for points that show up in later frames but not in this one!
+%scatter(firstOccurenceEachAphid(:, 2), firstOccurenceEachAphid(:, 3), 'filled'); %TODO: this will not account for points that show up in later frames but not in this one!
+scatter(lastOccurenceEachAphid(:, 2), lastOccurenceEachAphid(:, 3), 'filled');
 
 rectangle('Position',[-.2, -.2, .4, .4],'Curvature',[1 1])
 axis([-.25 .25 -.25 .25]);
