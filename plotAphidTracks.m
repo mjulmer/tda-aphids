@@ -57,13 +57,17 @@ for i = 1:maxAphidNum
 end
 % plots current frame
 figure
-%scatter(firstOccurenceEachAphid(:, 2), firstOccurenceEachAphid(:, 3), 'filled'); %TODO: this will not account for points that show up in later frames but not in this one!
-scatter(lastOccurenceEachAphid(:, 2), lastOccurenceEachAphid(:, 3), 'filled');
-
-rectangle('Position',[-.2, -.2, .4, .4],'Curvature',[1 1])
 axis([-.25 .25 -.25 .25]);
 axis off
 pbaspect([1 1 1])
+
+hold on;
+%color = [16 145 14];
+scatter(firstOccurenceEachAphid(:, 2), firstOccurenceEachAphid(:, 3), 50, [.1 .8 .1], 'filled'); %TODO: this will not account for points that show up in later frames but not in this one!
+scatter(lastOccurenceEachAphid(:, 2), lastOccurenceEachAphid(:, 3), 'red', 'filled');
+
+rectangle('Position',[-.2, -.2, .4, .4],'Curvature',[1 1])
+
 
  %drawing lines between appropriate points
  for x = 1:maxAphidNum
@@ -72,10 +76,11 @@ pbaspect([1 1 1])
      if size(positions) >= 1
          for y = 1:(size(positions) - 1)
              if coordinateMatrix(y, x, 1) ~= 0
-                line([coordinateMatrix(y, x, 1) coordinateMatrix(y + 1, x, 1)'],[coordinateMatrix(y, x, 2) coordinateMatrix(y + 1, x, 2)'],'Marker','.','LineStyle','-', 'LineWidth', 2, 'Color', 'r')
+                line([coordinateMatrix(y, x, 1) coordinateMatrix(y + 1, x, 1)'],[coordinateMatrix(y, x, 2) coordinateMatrix(y + 1, x, 2)'],'Marker','.','LineStyle','-', 'LineWidth', 2, 'Color', 'b')
              end
          end
      end
  end
  
- write_fig_300_dpi(handle, 'Fig2');
+ hold off;
+ write_fig_300_dpi(handle, 'Fig2', [7.5*.9 7.5*.9]);
