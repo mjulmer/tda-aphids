@@ -66,6 +66,7 @@ set(handle1, 'pos', p);
 h.ZData; %for testing
 %clabel(C, h, 'FontName','Times New Roman','FontSize',10)
 %[C, h] = contourf(x, y, data, contours);
+set(gca,'FontName','Times New Roman','FontSize',10);
 xlabel('Time \it{t}');
 ylabel('Proximity parameter \epsilon');
 colormap(handle1, cmap); % or default, hsv
@@ -90,6 +91,7 @@ end
 x = .5 * x;
 
 [C, h] = contour(x, y, data2, contours);
+set(gca,'FontName','Times New Roman','FontSize',10);
 xlabel('Time \it{t}');
 ylabel('Proximity parameter \epsilon');
 colormap(handle2, cmap); %hsv; % or default
@@ -113,6 +115,7 @@ end
 x = .5 * x;
 
 [C, h] = contour(x, y, data3, contours);
+set(gca,'FontName','Times New Roman','FontSize',10);
 xlabel('Time \it{t}');
 ylabel('Proximity parameter \epsilon');
 colormap(handle3, cmap); %hsv; % or default
@@ -137,6 +140,7 @@ end
 x = .5 * x;
 
 [C, h] = contour(x, y, data4, contours);
+set(gca,'FontName','Times New Roman','FontSize',10);
 xlabel('Time \it{t}');
 ylabel('Proximity parameter \epsilon');
 colormap(handle4, cmap); %hsv; % or default

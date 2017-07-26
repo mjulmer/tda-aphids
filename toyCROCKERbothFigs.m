@@ -33,6 +33,7 @@ midValue = mean(get(gca,'CLim'));  %# Get the middle value of the color range
 
 %set(gca,'XTick',1:8, 'YTick',0.1:0.1:0.6, 'TickLength',[0 0]);
 xlabel('Time \it{t}');
+xticklabels([0:1:7]);
 ylabel('Proximity parameter \epsilon');
 yticklabels(fliplr([0:0.1:0.5]));
 title('(A)')
@@ -74,14 +75,15 @@ axis([0 7 0 6])
 box on;
 xlabel('Time \it{t}');
 ylabel('Proximity parameter \epsilon');
-set(gca,'YTick',.5:1:6);
+set(gca,'YTick',0:1.2:6);
+%yticklabels(0:0.1:0.5);
 yticklabels(0:0.1:0.5);
 set(gca,'XTick',0:1:8)
-xticklabels(1:1:8);
+xticklabels(0:1:7);
 colorbar('Ticks',[2.4, 3.2, 4, 4.8, 5.6],'YTickLabel', {'2', '3', '4', '5', '6'})
 set(gca,'FontName','Times New Roman','FontSize',10);
 title('(B)')
 
 
 
-write_fig_300_dpi(fig, 'Fig3');
+write_fig_300_dpi(fig, 'Fig4');

@@ -1,7 +1,7 @@
 for expnum = 7:7
-    %data1 = load(strcat('experimentalh0exp', num2str(expnum), '.csv'));
-    %data2 = load(strcat('model100h0exp', num2str(expnum), 'run1.csv'));
-    %data3 = load(strcat('noInteraction100h0exp', num2str(expnum), 'run1.csv'));
+    data1 = load(strcat('experimentalh0exp', num2str(expnum), '.csv'));
+    data2 = load(strcat('model100h0exp', num2str(expnum), 'run1.csv'));
+    data3 = load(strcat('noInteraction100h0exp', num2str(expnum), 'run1.csv'));
     
     frameNums = [4605; 5647; 5651; 5409; 5409; 5221; 5332; 5418; 5883];
     
@@ -59,6 +59,7 @@ for expnum = 7:7
     h.ZData; %for testing
     %clabel(C, h, 'FontName','Times New Roman','FontSize',10)
     %[C, h] = contourf(x, y, data, contours);
+    set(gca,'FontName','Times New Roman','FontSize',10);
     xlabel('Time \it{t}');
     ylabel('Proximity parameter \epsilon');
     colormap(handle1, cmap); % or default, hsv
@@ -76,6 +77,7 @@ for expnum = 7:7
     set(handle2, 'pos', p);
     
     [C, h] = contour(x, y, data2, contours);
+    set(gca,'FontName','Times New Roman','FontSize',10);
     xlabel('Time \it{t}');
     ylabel('Proximity parameter \epsilon');
     colormap(handle2, cmap); %hsv; % or default
@@ -94,6 +96,7 @@ for expnum = 7:7
     set(handle3, 'pos', p);
     
     [C, h] = contour(x, y, data3, contours);
+    set(gca,'FontName','Times New Roman','FontSize',10);
     xlabel('Time \it{t}');
     ylabel('Proximity parameter \epsilon');
     colormap(handle3, cmap); %hsv; % or default
