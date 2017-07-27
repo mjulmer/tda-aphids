@@ -37,7 +37,7 @@ for expnum = 1:9
     %fname = strcat('frame_', num2str(f1), '_exp_', num2str(expnum));
     scatter(f1data(:, 2), f1data(:, 3), 4, 'filled');
     rectangle('Position',[-.2, -.2, .4, .4],'Curvature',[1 1])
-    frameTitle = ['Experiment ' num2str(expnum)];
+    frameTitle = ['Trial ' num2str(expnum)];
     title(fig, frameTitle);
     set(gca,'FontName','Times New Roman','FontSize',10);
     %set(gca,'XTick',[-0.2:.1:0.2])

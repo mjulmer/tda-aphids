@@ -1,8 +1,8 @@
-expnum1 = 5;
+expnum1 = 3;
 expnum2 = 7;
 %data1 = load(strcat('full100modelAverageExp', num2str(expnum1), '.csv'));
-%data2 = load(strcat('full100modelAverageExp', num2str(expnum2), '.csv'));
-%data3 = load(strcat('full100noInteractionAverageExp', num2str(expnum1), '.csv'));
+%data2 = load(strcat('full100noInteractionAverageExp', num2str(expnum1), '.csv'));
+%data3 = load(strcat('full100modelAverageExp', num2str(expnum2), '.csv'));
 %data4 = load(strcat('full100noInteractionAverageExp', num2str(expnum2), '.csv'));
 
 frameNums = [4605; 5647; 5651; 5409; 5409; 5221; 5332; 5418; 5883];
@@ -59,7 +59,7 @@ handle = figure;
 handle1 = subplot(4, 1, 1);
 %p is of form [left, bottom, width, height]
 p = get(handle1, 'pos');
-p(2) = p(2) + .04;
+p(2) = p(2) + .03;
 set(handle1, 'pos', p);
 
 [C, h] = contour(x, y, data1, contours);
@@ -76,11 +76,15 @@ colorbar('Ticks', ticks, 'YTickLabel', num2str(tickLabels), 'ylim', [cbarMin cba
 title('(A)')
 %colorbar('ylim', [1.8 10])
 
+xlabh = get(gca,'XLabel');
+p = get(xlabh,'pos');
+p(2) = p(2) + .03;
+set(xlabh,'pos', p);
 
 handle2 = subplot(4, 1, 2);
 %p is of form [left, bottom, width, height]
 p = get(handle2, 'pos');
-p(2) = p(2) + .01;
+p(2) = p(2) + .005;
 set(handle2, 'pos', p);
 
 %redefine x range since new number for last frame
@@ -100,6 +104,10 @@ colormap(handle2, cmap); %hsv; % or default
 colorbar('Ticks', ticks, 'YTickLabel', num2str(tickLabels), 'ylim', [cbarMin cbarMax])
 title('(B)')
 
+xlabh = get(gca,'XLabel');
+p = get(xlabh,'pos');
+p(2) = p(2) + .03;
+set(xlabh,'pos', p);
 
 handle3 = subplot(4, 1, 3);
 %p is of form [left, bottom, width, height]
@@ -124,7 +132,10 @@ colormap(handle3, cmap); %hsv; % or default
 colorbar('Ticks', ticks, 'YTickLabel', num2str(tickLabels), 'ylim', [cbarMin cbarMax])
 title('(C)')
 
-
+xlabh = get(gca,'XLabel');
+p = get(xlabh,'pos');
+p(2) = p(2) + .03;
+set(xlabh,'pos', p);
 
 handle4 = subplot(4, 1, 4);
 %p is of form [left, bottom, width, height]
@@ -148,6 +159,11 @@ colormap(handle4, cmap); %hsv; % or default
 %colorbar('Ticks', ticks, 'YTickLabel', num2str(tickLabels))
 colorbar('Ticks', ticks, 'YTickLabel', num2str(tickLabels), 'ylim', [cbarMin cbarMax])
 title('(D)')
+
+xlabh = get(gca,'XLabel');
+p = get(xlabh,'pos');
+p(2) = p(2) + .03;
+set(xlabh,'pos', p);
 
 %saveas(han, strcat('playCROCKERexp', num2str(expnum)));
 %saveas(han, strcat('noInteraction100', 'h', num2str(dimension), 'exp', num2str(expnum), 'run', num2str(runnum)), 'png');

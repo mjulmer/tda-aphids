@@ -37,6 +37,8 @@ for i = 1:numOfFrames %going through each frame
     end
 end
 
+%csvwrite(strcat('exp9dataFromFrameSelection', '.csv'), relevantFrames);
+
 %keeps track of the first time each element shows up, then plots all of those coordinates
 firstOccurenceEachAphid = zeros(maxAphidNum, 3);
 for i = 1:maxAphidNum
@@ -46,7 +48,7 @@ for i = 1:maxAphidNum
     end   
 end
 firstOccurenceEachAphid = firstOccurenceEachAphid(any(firstOccurenceEachAphid,2),:); %deletes all zero lines
-
+csvwrite(strcat('firstOccurencesTable', '.csv'), firstOccurenceEachAphid);
 
 lastOccurenceEachAphid = zeros(maxAphidNum, 3);
 for i = 1:maxAphidNum
@@ -64,7 +66,7 @@ pbaspect([1 1 1])
 hold on;
 %color = [16 145 14];
 scatter(firstOccurenceEachAphid(:, 2), firstOccurenceEachAphid(:, 3), 50, [.1 .8 .1], 'filled'); %TODO: this will not account for points that show up in later frames but not in this one!
-scatter(lastOccurenceEachAphid(:, 2), lastOccurenceEachAphid(:, 3), 'red', 'filled');
+%scatter(lastOccurenceEachAphid(:, 2), lastOccurenceEachAphid(:, 3), 'red', 'filled');
 
 rectangle('Position',[-.2, -.2, .4, .4],'Curvature',[1 1])
 
