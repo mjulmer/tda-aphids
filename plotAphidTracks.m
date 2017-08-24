@@ -6,52 +6,62 @@
 %rather than their last. This version tracks only the aphids appearing in
 %the first frame.
 
-%aphiddata = load('aphiddata.csv');
+aphiddata = load('aphiddata.csv');
 handle = figure;
 
 expnum = 9;
 framenum = 2; %starting frame, goes out numOfFrames frames from here
 numOfFrames = 900;
-stepsize = 0.001;
-epsilon = stepsize;
-maximum = 0.05;
 
 % grabs the [frame number, x coord, y coord] of designated 
 % experiment and frame
 indx = (aphiddata(:,1) == expnum);
-sim1fxy = aphiddata(indx, [2, 3, 4, 5]);
-indxFrame = ((sim1fxy(:,2) >= framenum) & (sim1fxy(:,2) <= framenum + numOfFrames));
+expAllFrames = aphiddata(indx, [2, 3, 4, 5]);
+indxFrame = ((expAllFrames(:,2) >= framenum) & (expAllFrames(:,2) <= framenum + numOfFrames));
+relevantFrames = (expAllFrames(indxFrame, :)); %column 1 aphid number, 2 is frame num, 3 and 4 are x and y coords
 
-relevantFrames = (sim1fxy(indxFrame, [1, 3, 4]));
-maxAphidNum = max(relevantFrames(:,1));
-coordinateMatrix = zeros(numOfFrames, maxAphidNum, 2); % number of frames * all aphid numbers * x and y coordinates
+%csvwrite(strcat('exp9dataFromFrameSelection', '.csv'), relevantFrames);
+
+%framenum = 3; %the first frame in the experimental data is numbered 2
+indx2 = ( relevantFrames(:,2) == framenum);
+initFrame = relevantFrames(indx2, [1, 2, 3, 4]);
+dims = size(initFrame());
+numAphids = dims(1); %the number of aphids in the starting frame, disregarding numbering
+aphidIndices = initFrame(:, 1); %a vector containing the aphid numbers for ease of extraction
+
+coordinateMatrix = zeros(numOfFrames, max(aphidIndices), 2); % number of frames * all aphid numbers (plus omitted numbers) * x and y coordinates
 
 for i = 1:numOfFrames %going through each frame
-    indxFrame = (sim1fxy(:,2) == framenum + i - 1);
-    frameOnly = sim1fxy(indxFrame, [1, 3, 4]);
+    indxFrame = (relevantFrames(:,2) == framenum + i - 1);
+    frameOnly = relevantFrames(indxFrame, [1, 3, 4]);
     elementsInFrame = numel(frameOnly(:,1));
     
-    for j = 1:elementsInFrame % going through all elements in each frame
-        coordinateMatrix(i, frameOnly(j, 1), 1) = frameOnly(j, 2);
-        coordinateMatrix(i, frameOnly(j, 1), 2) = frameOnly(j, 3);
+    for j = transpose(aphidIndices) % going through all elements in each frame
+        aphidPresent = (frameOnly(:,1) == j);
+        index = find(aphidPresent); %pulls out the index of the non-zero entry - i.e., where that numbered aphid is
+        if ~isempty(index)
+            coordinateMatrix(i, frameOnly(index, 1), 1) = frameOnly(index, 2);
+            coordinateMatrix(i, frameOnly(index, 1), 2) = frameOnly(index, 3);
+        end
     end
 end
 
 %csvwrite(strcat('exp9dataFromFrameSelection', '.csv'), relevantFrames);
 
 %keeps track of the first time each element shows up, then plots all of those coordinates
-firstOccurenceEachAphid = zeros(maxAphidNum, 3);
-for i = 1:maxAphidNum
-    firstFrameAppears = find(coordinateMatrix(:, i, 1));
-    if ~isempty(firstFrameAppears)
-        firstOccurenceEachAphid(i, :) = [i, coordinateMatrix(firstFrameAppears(1),i, 1), coordinateMatrix(firstFrameAppears(1), i, 2)];
-    end   
-end
-firstOccurenceEachAphid = firstOccurenceEachAphid(any(firstOccurenceEachAphid,2),:); %deletes all zero lines
-csvwrite(strcat('firstOccurencesTable', '.csv'), firstOccurenceEachAphid);
+% firstOccurenceEachAphid = zeros(numAphids, 3);
+% for i = 1:numAphids
+%     firstFrameAppears = find(coordinateMatrix(:, i, 1));
+%     if ~isempty(firstFrameAppears)
+%         firstOccurenceEachAphid(i, :) = [i, coordinateMatrix(firstFrameAppears(1),i, 1), coordinateMatrix(firstFrameAppears(1), i, 2)];
+%     end   
+% end
+%initFrame = initFrame(any(initFrame,2),:); %deletes all zero aphids (which appear because there is a matrix entry for numbers not corresponding to existing aphids)
+initFrame(all(initFrame == 0, 2), :) = [];
+ % csvwrite(strcat('firstOccurencesTable', '.csv'), firstOccurenceEachAphid);
 
-lastOccurenceEachAphid = zeros(maxAphidNum, 3);
-for i = 1:maxAphidNum
+lastOccurenceEachAphid = zeros(max(aphidIndices), 3); %will be some 0 entries if the aphids aren't consecutively numbered, but makes the next code block more readable
+for i = transpose(aphidIndices)
     lastFrameAppears = find(coordinateMatrix(:, i, 1), 1, 'last'); %get the last index instead of the first
     if ~isempty(lastFrameAppears)
         lastOccurenceEachAphid(i, :) = [i, coordinateMatrix(lastFrameAppears(1),i, 1), coordinateMatrix(lastFrameAppears(1), i, 2)];
@@ -65,14 +75,15 @@ pbaspect([1 1 1])
 
 hold on;
 %color = [16 145 14];
-scatter(firstOccurenceEachAphid(:, 2), firstOccurenceEachAphid(:, 3), 50, [.1 .8 .1], 'filled'); %TODO: this will not account for points that show up in later frames but not in this one!
-%scatter(lastOccurenceEachAphid(:, 2), lastOccurenceEachAphid(:, 3), 'red', 'filled');
+lastOccurenceEachAphid(all(lastOccurenceEachAphid == 0, 2), :) = []; %deletes all zero aphids (which appear because there is a matrix entry for numbers not corresponding to existing aphids)
+scatter(initFrame(:, 3), initFrame(:, 4), 50, [.1 .8 .1], 'filled');
+scatter(lastOccurenceEachAphid(:, 2), lastOccurenceEachAphid(:, 3), 'red', 'filled');
 
 rectangle('Position',[-.2, -.2, .4, .4],'Curvature',[1 1])
 
 
  %drawing lines between appropriate points
- for x = 1:maxAphidNum
+ for x = 1:numAphids
      singleAphid = coordinateMatrix(:, x, :);
      positions = find(coordinateMatrix(:, x, 1));
      if size(positions) >= 1

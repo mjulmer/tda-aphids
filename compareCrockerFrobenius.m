@@ -25,11 +25,11 @@ for expnum = 1:1
     end
     
     %normalize by number of entries in the matrix
-    diffExpModel = diffExpModel ./ numElements;
-    diffExpNaive = diffExpNaive ./ numElements;
+    %diffExpModel = diffExpModel ./ numElements;
+    %diffExpNaive = diffExpNaive ./ numElements;
     
-    csvwrite(strcat('ModelAndExpFrobenius', 'h', num2str(dimension), 'exp', num2str(expnum), '.csv'), diffExpModel)
-    csvwrite(strcat('ExpAndNonFrobenius', 'h', num2str(dimension), 'exp', num2str(expnum), '.csv'), diffExpNaive)
+    csvwrite(strcat('noNormModelAndExpFrobeniusNoNorm', 'h', num2str(dimension), 'exp', num2str(expnum), '.csv'), diffExpModel)
+    csvwrite(strcat('noNormExpAndNonFrobeniusNoNorm', 'h', num2str(dimension), 'exp', num2str(expnum), '.csv'), diffExpNaive)
     
     expnum
 end
