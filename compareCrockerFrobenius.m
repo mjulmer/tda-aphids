@@ -6,15 +6,15 @@ diffExpModel = zeros(1, numTrials); %experimental and model
 diffExpNaive = zeros(1, numTrials); % experimental and non-interactive
 dimension = 0; %h dimension of plots you want
 
-for expnum = 1:1
+for expnum = 5:9
    
     expData = load(strcat('experimental', 'h', num2str(dimension), 'exp', num2str(expnum), '.csv'));
     dimensions = size(expData);
     numElements = dimensions(1)*dimensions(2); %for normalization
     
     for runnum = 1:numTrials
-        modelData = load(strcat('modelFullh0exp', num2str(expnum), 'run', num2str(runnum), '.csv')); %funny naming scheme for the first few
-        %modelData = load(strcat('model100', 'h', num2str(dimension), 'exp', num2str(expnum), 'run', num2str(runnum), '.csv'));
+        %modelData = load(strcat('modelFullh0exp', num2str(expnum), 'run', num2str(runnum), '.csv')); %funny naming scheme for the first 4
+        modelData = load(strcat('model100', 'h', num2str(dimension), 'exp', num2str(expnum), 'run', num2str(runnum), '.csv'));
         naiveData = load(strcat('noInteraction100', 'h', num2str(dimension), 'exp', num2str(expnum), 'run', num2str(runnum), '.csv'));
         
         %take the frobenius norm of the distance between the matrices
@@ -25,11 +25,11 @@ for expnum = 1:1
     end
     
     %normalize by number of entries in the matrix
-    %diffExpModel = diffExpModel ./ numElements;
-    %diffExpNaive = diffExpNaive ./ numElements;
+    diffExpModel = diffExpModel ./ numElements;
+    diffExpNaive = diffExpNaive ./ numElements;
     
-    csvwrite(strcat('noNormModelAndExpFrobeniusNoNorm', 'h', num2str(dimension), 'exp', num2str(expnum), '.csv'), diffExpModel)
-    csvwrite(strcat('noNormExpAndNonFrobeniusNoNorm', 'h', num2str(dimension), 'exp', num2str(expnum), '.csv'), diffExpNaive)
+    csvwrite(strcat('modelAndExpFrobenius', 'h', num2str(dimension), 'exp', num2str(expnum), '.csv'), diffExpModel)
+    csvwrite(strcat('expAndNonFrobenius', 'h', num2str(dimension), 'exp', num2str(expnum), '.csv'), diffExpNaive)
     
     expnum
 end

@@ -1,7 +1,7 @@
 
 for expnum = 1:9
-    dataModel = load(strcat('ModelAndExpFrobenius', 'h0exp', num2str(expnum), '.csv'));
-    dataNaive = load(strcat('ExpAndNonFrobenius', 'h0exp', num2str(expnum), '.csv'));
+    dataModel = load(strcat('modelAndExpFrobenius', 'h0exp', num2str(expnum), '.csv'));
+    dataNaive = load(strcat('expAndNonFrobenius', 'h0exp', num2str(expnum), '.csv'));
     
     data = zeros(100, 2);
     data(1:100, 1) = transpose(dataNaive);
